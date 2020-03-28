@@ -1,0 +1,6 @@
+{
+  "name": "cookbook",
+  "devDependencies": {
+    "prettier": "^2.0.2"
+  }
+}
