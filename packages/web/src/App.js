@@ -1,7 +1,6 @@
 import React from 'react';
 import logo from './chef.png';
 import styled, { keyframes } from 'styled-components';
-import './App.css';
 
 const AppContainter = styled.div`
   text-align: center;
