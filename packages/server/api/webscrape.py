@@ -2,7 +2,6 @@ from http.server import BaseHTTPRequestHandler
 import urllib.request as request
 import re
 from urllib.parse import parse_qs
-from selenium import webdriver
 from bs4 import BeautifulSoup
 
 class handler(BaseHTTPRequestHandler):
