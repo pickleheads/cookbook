@@ -27,7 +27,7 @@ const unitEnums = [
 const schema = new Schema(
   {
     servings: {
-      type: Number,
+      type: String,
       required: true,
     },
     prepTime: String,
@@ -42,6 +42,10 @@ const schema = new Schema(
         quantity: {
           type: Number,
           required: true,
+        },
+        name: {
+          type: String,
+          required: true
         },
       },
     ],
