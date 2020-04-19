@@ -1,6 +1,6 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const Recipe = require("./models/recipe");
+const express = require('express');
+const mongoose = require('mongoose');
+const Recipe = require('./models/recipe');
 require('dotenv').config();
 
 const { ApolloServer, gql } = require('apollo-server-express');
@@ -16,13 +16,13 @@ const typeDefs = gql`
     name: String
   }
   input IngredientInput {
-    unit: String!,
-    quantity: Int!,
+    unit: String!
+    quantity: Int!
     name: String!
   }
   type Ingredient {
-    unit: String!,
-    quantity: Int!,
+    unit: String!
+    quantity: Int!
     name: String!
   }
   type Recipe {
@@ -43,15 +43,17 @@ const typeDefs = gql`
 `;
 
 const resolvers = {
-    Query: { 
-      recipes: () => Recipe.find({}).lean().exec()
-    },
-    Mutation: {
-      createRecipe: (parent, args) => Recipe.create(args.input)
-    }
+  Query: {
+    recipes: () => Recipe.find({}).lean().exec(),
+  },
+  Mutation: {
+    createRecipe: (parent, args) => Recipe.create(args.input),
+  },
 };
 
-mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds363118.mlab.com:63118/pickleheads-cookbook`)
+mongoose.connect(
+  `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds363118.mlab.com:63118/pickleheads-cookbook`
+);
 
 const app = express();
 const server = new ApolloServer({
