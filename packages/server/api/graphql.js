@@ -1,9 +1,12 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const Recipe = require('./models/recipe');
+const { ApolloServer, gql } = require('apollo-server-express');
 require('dotenv').config();
 
-const { ApolloServer, gql } = require('apollo-server-express');
+const MONGODB_USER = process.env.DB_USER;
+const MONGODB_PASSWORD = process.env.DB_PASSWORD;
+const MONGO_DB_CONNECTION_URI = `mongodb://${MONGODB_USER}:${MONGODB_PASSWORD}@ds363118.mlab.com:63118/pickleheads-cookbook`;
 
 const typeDefs = gql`
   input RecipeInput {
@@ -51,9 +54,7 @@ const resolvers = {
   },
 };
 
-mongoose.connect(
-  `mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds363118.mlab.com:63118/pickleheads-cookbook`
-);
+mongoose.connect(MONGO_DB_CONNECTION_URI);
 
 const app = express();
 const server = new ApolloServer({
