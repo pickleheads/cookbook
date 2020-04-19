@@ -23,8 +23,8 @@ class handler(BaseHTTPRequestHandler):
     html_doc = html_bytes.decode("utf8")
     file_pointer.close()
 
-    soup = BeautifulSoup(html_doc, 'html.parser')
-    ingredients = soup.find("div", "ingredients")
+    html_parsed = BeautifulSoup(html_doc, 'html.parser')
+    ingredients = html_parsed.find("div", "ingredients")
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
     self.end_headers()
