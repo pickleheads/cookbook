@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 class handler(BaseHTTPRequestHandler):
   whitelisted_url_regexes = [
-    re.compile("^https:\/\/www\.bonappetit\.com")
+    re.compile('^https:\/\/www\.bonappetit\.com')
   ]
   def do_GET(self):
     url = parse.parse_qs(parse.urlsplit(self.path).query)['url'][0]
@@ -20,11 +20,11 @@ class handler(BaseHTTPRequestHandler):
 
     file_pointer = request.urlopen(url)
     html_bytes = file_pointer.read()
-    html_doc = html_bytes.decode("utf8")
+    html_doc = html_bytes.decode('utf8')
     file_pointer.close()
 
     html_parsed = BeautifulSoup(html_doc, 'html.parser')
-    ingredients = html_parsed.find("div", "ingredients")
+    ingredients = html_parsed.find('div', 'ingredients')
     self.send_response(200)
     self.send_header('Content-type', 'text/plain')
     self.end_headers()
