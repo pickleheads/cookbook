@@ -1,34 +1,29 @@
-from http.server import BaseHTTPRequestHandler
-import urllib.request as request
 import re
-from urllib import parse
 from bs4 import BeautifulSoup
+from flask import Flask, Response, request
 
-class handler(BaseHTTPRequestHandler):
-  whitelisted_url_regexes = [
-    re.compile('^https:\/\/www\.bonappetit\.com')
-  ]
+app = Flask(__name__)
 
-  def do_GET(self):
-    url = parse.parse_qs(parse.urlsplit(self.path).query)['url'][0]
-    url_in_whitelist = any(regex.match(url) for regex in self.whitelisted_url_regexes)
-    
-    if(not url_in_whitelist):
-      self.send_response(500)
-      self.send_header('Content-type', 'text/plain')
-      self.end_headers()
-      self.wfile.write('Unsupported recipe site'.encode())
-      return
+WHITELISTED_URL_REGEXES = [re.compile("^https://www\.bonappetit\.com")]
+
+
+@app.route('/', defaults={'path': ''})
+@app.route('/<path:path>')
+def parse_recipe(path):
+    print("<h1>Flask</h1><p>You visited: /%s</p>" % (path))
+    url = request.args.get("url")
+    url_in_whitelist = any(regex.match(url) for regex in WHITELISTED_URL_REGEXES)
+
+    if not url_in_whitelist:
+        return Response(
+            "Unsupported recipe site", content_type="text/plain", status=500
+        )
 
     file_pointer = request.urlopen(url)
     html_bytes = file_pointer.read()
-    html_doc = html_bytes.decode('utf8')
+    html_doc = html_bytes.decode("utf8")
     file_pointer.close()
-    html_parsed = BeautifulSoup(html_doc, 'html.parser')
-    ingredients = html_parsed.find('div', 'ingredients')
+    html_parsed = BeautifulSoup(html_doc, "html.parser")
+    ingredients = html_parsed.find("div", "ingredients")
 
-    self.send_response(200)
-    self.send_header('Content-type', 'text/plain')
-    self.end_headers()
-    self.wfile.write(str(ingredients.prettify()).encode())
-    return
+    return Response(str(ingredients.prettify()), status=200, content_type="text/plain")
