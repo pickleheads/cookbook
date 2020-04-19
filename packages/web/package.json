@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "react-scripts build",
-    "develop": "PORT=3000 react-scripts start",
+    "develop": "env PORT=3000 react-scripts start",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
@@ -16,6 +16,9 @@
     "react-dom": "^16.13.1",
     "react-scripts": "3.4.1",
     "styled-components": "^5.0.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
   },
   "eslintConfig": {
     "extends": "react-app"
