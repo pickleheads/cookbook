@@ -16,9 +16,9 @@ cd packages/web
 npm run develop
 ```
 
-Then open another terminal tab and start the cloud function by running the `develop` script from the `api` directory:
+Then open another terminal tab and start the cloud function by running the `develop` script from the `server` directory:
 ```shell
-cd packages/api
+cd packages/server
 npm run develop
 ```
 
