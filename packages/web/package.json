@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "build": "react-scripts build",
-    "develop": "env PORT=3000 react-scripts start",
+    "develop": "cross-env PORT=3000 react-scripts start",
     "start": "react-scripts start",
     "test": "react-scripts test"
   },
