@@ -1,29 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const unitEnums = [
-  'teaspoon',
-  'tablespoon',
-  'fluid_ounce',
-  'gill',
-  'cup',
-  'pint',
-  'quart',
-  'gallon',
-  'millilitre',
-  'litre',
-  'decilitre',
-  'pound',
-  'ounce',
-  'milligram',
-  'gram',
-  'killogam',
-  'millimetre',
-  'centimetre',
-  'metre',
-  'inch',
-];
-
 const schema = new Schema(
   {
     servings: {
@@ -34,20 +11,9 @@ const schema = new Schema(
     cookTime: String,
     ingredients: [
       {
-        unit: {
-          type: String,
-          enum: unitEnums,
-          required: true,
-        },
-        quantity: {
-          type: Number,
-          required: true,
-        },
-        name: {
-          type: String,
-          required: true
-        },
-      },
+        type: String,
+        required: true,
+      }
     ],
     steps: [
       {
@@ -55,7 +21,7 @@ const schema = new Schema(
         required: true,
       },
     ],
-    links: [String],
+    link: String,
     name: {
       type: String,
       required: true,
